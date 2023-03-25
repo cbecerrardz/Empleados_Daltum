@@ -1,0 +1,154 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h1 class="display-4">Bienvenido</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <button type="button" class="btn btn-primary" id="btnNuevo" ><i class="fa fa-plus"></i><span></span> | Nuevo empleado</button>
+    <button type="button" class="btn btn-dark" id="btnBuscar"><i class="fa fa-search"></i><span></span> | Buscar</button>
+    <button type="button" class="btn btn-success" id="btnUpdate"><i class="fa fa-rotate-right"></i><span> | Actualizar</span></button>
+    <table id="empleadoTable" class="table" width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Puesto</th>
+                <th>RFC</th>
+                <th>Fecha de Alta</th>
+                <th>Estatus Laboral</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+
+    <div id="modalAlta" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Row information</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="name" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Apellido Materno</label>
+                    <input type="text" class="form-control" id="app-name" maxlength="30">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Apellido Materno:</label>
+                    <input type="text" class="form-control" id="apm-name" maxlength="30">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Email:</label>
+                    <input type="text" class="form-control" id="email-name" maxlength="30">
+                </div>
+                 <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Fecha de nacimiento:</label>
+                    <input type="date" id="start" name="fchnac-name" min="1970-01-01" max="2023-12-31">
+                </div>
+                 <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Edad</label>
+                    <input type="number" class="form-control" id="email-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">RFC:</label>
+                    <input type="text" class="form-control" id="email-name" maxlength="13">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Telefono:</label>
+                    <input type="text" class="form-control" id="tel-name" maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Puesto:</label>
+                    <input type="text" class="form-control" id="puesto-name" maxlength="30">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="btnCrear">Crear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div id="modalEditar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Row information</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nombre:</label>
+                    <input type="text" class="form-control" id="nom" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Apellido Materno</label>
+                    <input type="text" class="form-control" id="app-name" maxlength="30">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Apellido Materno:</label>
+                    <input type="text" class="form-control" id="apm-name" maxlength="30">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div id="modalBusqueda" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">Busqueda de Empleado</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="b-name" maxlength="30">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">RFC</label>
+                            <input type="text" class="form-control" id="b-rfc" maxlength="13">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Estatus</label>
+                            <select class="form-select" id="estatus" name="estatus">
+                                <option value="A">Labora </option>
+                                <option value="B">Ya no labora</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success">Buscar</button>
+                </div>
+
+                </div>
+            </div>
+        </div>
+</div>
