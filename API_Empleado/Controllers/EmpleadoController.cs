@@ -1,10 +1,6 @@
 ﻿using API_Empleado.DAL.Entidades;
 using API_Empleado.DAL.Repositorio;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Data.Entity;
-using System.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace API_Empleado.Controllers
 {
@@ -25,7 +21,7 @@ namespace API_Empleado.Controllers
         /// <param name="emp"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Empleados>> AddEmpleado(Empleados emp)
+        public async Task<ActionResult<Empleados>> AddEmpleado([FromBody] Empleados emp)
         {
             await _empleadoContexto.Insert(emp);
             return Ok(emp);
@@ -113,18 +109,35 @@ namespace API_Empleado.Controllers
         /// <param name="emp"></param>
         /// <returns></returns>
         [HttpPost("Search")]
-        public async Task<ActionResult<IEnumerable<Empleados>>> SearchEmpleados([FromBody] Empleados emp)
+        public async Task<ActionResult<IEnumerable<Empleados>>> SearchEmpleados(Empleados emp)
         {
-            if (string.IsNullOrEmpty(emp.Nombre) && string.IsNullOrEmpty(emp.RFC) && emp.RFC.IsNullOrEmpty() && char.IsWhiteSpace(emp.Estatus))
+
+            IEnumerable<Empleados> query = await _empleadoContexto.GetAll();
+            IEnumerable<Empleados> result;
+
+            if (emp.Estatus != '\0' && char.IsWhiteSpace(emp.Estatus))
+            {
+                if (emp.Estatus.Equals("A"))
+                    query = query.Where(item => item.Fecha_Baja == null);
+                else
+                    query = query.Where(item => item.Fecha_Baja != null);
+            }
+            if (!string.IsNullOrEmpty(emp.Nombre))
+                query = query.Where(item => item.Nombre == emp.Nombre);
+
+            if (!string.IsNullOrEmpty(emp.RFC))
+                query = query.Where(item => item.RFC == emp.RFC);
+
+
+            if(query.Count() > 0)
+            {
+                result = query;
+                return Ok(result);
+            }
+            else
             {
                 return NotFound(new Empleados());
             }
-
-            IEnumerable<Empleados> query = await _empleadoContexto.GetAll();
-
-            //var query = _context.Empleados;
-            var result = query.Where(e => e.RFC.Contains(emp.RFC));
-            return Ok(result);
         }
     }
 }
