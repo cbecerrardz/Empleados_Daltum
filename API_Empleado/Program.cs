@@ -1,6 +1,7 @@
 using API_Empleado.DAL.Core;
 using API_Empleado.DAL.Repositorio;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Services.AddCors(opt => opt.AddPolicy("CorsRule", rule =>
 {
     rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
 }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +31,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.UseCors("CorsRule");
+app.UseCors( options => options
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+  );
 app.MapControllers();
 
 app.Run();

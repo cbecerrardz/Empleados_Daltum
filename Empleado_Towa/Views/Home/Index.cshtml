@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<div id="spinnerH">
+    <div id="anilloH"><div></div><div></div><div></div><div></div></div>
+</div>
 <div class="text-center">
     <h1 class="display-4">Bienvenido</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -15,7 +18,9 @@
                 <th>Email</th>
                 <th>Puesto</th>
                 <th>RFC</th>
+                <th>Direccion</th>
                 <th>Fecha de Alta</th>
+                <th>Fecha de Baja</th>
                 <th>Estatus Laboral</th>
                 <th></th>
                 <th></th>
@@ -24,54 +29,57 @@
     </table>
 
     <div id="modalAlta" class="modal fade" role="dialog">
+        <div id="moA"></div>
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
+                    <h4 class="modal-title">Nuevo Empleado</h4>
                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Row information</h4>
                 </div>
                 <div class="modal-body">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Nombre:</label>
-                    <input type="text" class="form-control" id="name" maxlength="50">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Apellido Materno</label>
-                    <input type="text" class="form-control" id="app-name" maxlength="30">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Apellido Materno:</label>
-                    <input type="text" class="form-control" id="apm-name" maxlength="30">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Email:</label>
-                    <input type="text" class="form-control" id="email-name" maxlength="30">
-                </div>
-                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Fecha de nacimiento:</label>
-                    <input type="date" id="start" name="fchnac-name" min="1970-01-01" max="2023-12-31">
-                </div>
-                 <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Edad</label>
-                    <input type="number" class="form-control" id="email-name" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">RFC:</label>
-                    <input type="text" class="form-control" id="email-name" maxlength="13">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Telefono:</label>
-                    <input type="text" class="form-control" id="tel-name" maxlength="10">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Puesto:</label>
-                    <input type="text" class="form-control" id="puesto-name" maxlength="30">
+                    <div id="anilloA"><div></div><div></div><div></div><div></div></div>
+                    <form id="frmA">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="name" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Apellido Materno</label>
+                        <input type="text" class="form-control" id="app-name" maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Apellido Materno:</label>
+                        <input type="text" class="form-control" id="apm-name" maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Email:</label>
+                        <input type="text" class="form-control" id="email-name" maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Fecha de nacimiento:</label>
+                         <input type="date" id="start" class="input-group date" name="fchnac-name" min="1970-01-01" max="2023-12-31">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Edad</label>
+                        <input type="number" class="form-control" id="email-name" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">RFC:</label>
+                        <input type="text" class="form-control" id="email-name" maxlength="13">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Telefono:</label>
+                        <input type="text" class="form-control" id="tel-name" maxlength="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Puesto:</label>
+                        <input type="text" class="form-control" id="puesto-name" maxlength="30">
+                    </div>
+                </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-success" onclick="btnCrear">Crear</button>
                 </div>
             </div>
@@ -80,35 +88,39 @@
 
 
         <div id="modalEditar" class="modal fade" role="dialog">
+        <div id="moE"></div>
         <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
+                    <h4 class="modal-title">Editar Empleado</h4>
                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Row information</h4>
                 </div>
                 <div class="modal-body">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Email:</label>
-                    <input type="text" class="form-control" id="e-email" maxlength="50">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Puesto</label>
-                    <input type="text" class="form-control" id="e-pso" maxlength="30">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Telefono</label>
-                    <input type="text" class="form-control" id="e-tel" maxlength="30">
-                </div>
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Fecha de Baja:</label>
-                    <input type="text" class="form-control" id="e-fb">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success">Actualizar</button>
+                    <div id="anilloE"><div></div><div></div><div></div><div></div></div>
+                    <form id="frmE">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Email:</label>
+                            <input type="text" class="form-control" id="e-email" maxlength="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Puesto</label>
+                            <input type="text" class="form-control" id="e-pso" maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Telefono</label>
+                            <input type="text" class="form-control" id="e-tel" maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Fecha de Baja:</label>
+                            <input type="date" id="start" class="input-group date" name="fchnac-name" min="1970-01-01" max="2023-12-31">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success" id="btnEdit">Actualizar</button>
+                        </div>
+                    </form>              
                 </div>
             </div>
         </div>
@@ -116,6 +128,7 @@
 
 
         <div id="modalBusqueda" class="modal fade" role="dialog">
+        <div id="moB"></div>
             <div class="modal-dialog">
 
                 <!-- Modal content-->
@@ -125,7 +138,8 @@
                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                    <div id="anilloB"><div></div><div></div><div></div><div></div></div>
+                        <form id="frmB">
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">Nombre:</label>
                             <input type="text" class="form-control" id="b-name" maxlength="30">
@@ -145,7 +159,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success">Buscar</button>
+                    <button type="button" class="btn btn-success" id="btnSearch">Buscar</button>
                 </div>
 
                 </div>
