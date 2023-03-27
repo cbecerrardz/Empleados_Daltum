@@ -24,6 +24,9 @@ namespace API_Empleado.DAL.Entidades
 
         public DateTime? Fecha_Baja { get; set; }
 
+        public byte IdGenero { get; set; }
+        public int IdEdoCivil { get; set; }
+
         public char Estatus { get; set; }
     }
 }
