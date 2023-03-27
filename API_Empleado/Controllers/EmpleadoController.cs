@@ -1,6 +1,8 @@
 ﻿using API_Empleado.DAL.Entidades;
 using API_Empleado.DAL.Repositorio;
+using Empleado_Daltum.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace API_Empleado.Controllers
 {
@@ -23,9 +25,29 @@ namespace API_Empleado.Controllers
         [HttpPost]
         public async Task<ActionResult<Empleados>> AddEmpleado([FromBody] Empleados emp)
         {
-            await _empleadoContexto.Insert(emp);
-            return Ok(emp);
-            //return CreatedAtAction(nameof(GetEmpleado), new { emp.id }, emp);
+            try {
+                emp.Fecha_Alta = DateTime.Now;
+                emp.Estatus = 'A';
+                var empleados = await _empleadoContexto.GetAll();
+                if (empleados.Any(x => x.RFC == emp.RFC))
+                {
+                    return BadRequest(new
+                    {
+                        Succeeded = false,
+                        Message = "El RFC ya existe!!!"
+                    });
+                }
+                else
+                {
+                    var result = await _empleadoContexto.Insert(emp);
+                    return Ok(emp);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(ex);
+            }
+
         }
 
 
@@ -79,7 +101,7 @@ namespace API_Empleado.Controllers
         /// <param name="emp"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateEmpleado(int Id, [FromBody] Empleados emp)
+        public async Task<IActionResult> UpdateEmpleado(int Id,  Empleados emp)
         {
             if (Id != emp.IdEmpleado)
             {
@@ -98,8 +120,8 @@ namespace API_Empleado.Controllers
             empUpdate.Telefono = emp.Telefono;
             empUpdate.Puesto = emp.Puesto;
             empUpdate.Fecha_Baja = emp.Fecha_Baja ?? emp.Fecha_Baja;
-
-            return NoContent();
+            await _empleadoContexto.Update(empUpdate);
+            return Ok();
         }
 
 
@@ -108,14 +130,14 @@ namespace API_Empleado.Controllers
         /// </summary>
         /// <param name="emp"></param>
         /// <returns></returns>
-        [HttpPost("Search")]
-        public async Task<ActionResult<IEnumerable<Empleados>>> SearchEmpleados(Empleados emp)
+        [HttpPost("Busqueda")]
+        public async Task<ActionResult<IEnumerable<Empleados>>> SearchEmpleados([FromBody] EmpleadoB emp)
         {
 
             IEnumerable<Empleados> query = await _empleadoContexto.GetAll();
             IEnumerable<Empleados> result;
 
-            if (emp.Estatus != '\0' && char.IsWhiteSpace(emp.Estatus))
+            if (!string.IsNullOrEmpty(emp.Estatus))
             {
                 if (emp.Estatus.Equals("A"))
                     query = query.Where(item => item.Fecha_Baja == null);
@@ -123,10 +145,10 @@ namespace API_Empleado.Controllers
                     query = query.Where(item => item.Fecha_Baja != null);
             }
             if (!string.IsNullOrEmpty(emp.Nombre))
-                query = query.Where(item => item.Nombre == emp.Nombre);
+                query = query.Where(item => item.Nombre.ToLower().Contains(emp.Nombre.ToLower()));
 
             if (!string.IsNullOrEmpty(emp.RFC))
-                query = query.Where(item => item.RFC == emp.RFC);
+                query = query.Where(item => item.RFC.ToLower().Contains(emp.RFC.ToLower()));
 
 
             if(query.Count() > 0)

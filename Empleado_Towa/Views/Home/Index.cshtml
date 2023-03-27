@@ -10,7 +10,7 @@
     <button type="button" class="btn btn-primary" id="btnNuevo" ><i class="fa fa-plus"></i><span></span> | Nuevo empleado</button>
     <button type="button" class="btn btn-dark" id="btnBuscar"><i class="fa fa-search"></i><span></span> | Buscar</button>
     <button type="button" class="btn btn-success" id="btnUpdate"><i class="fa fa-rotate-right"></i><span> | Actualizar</span></button>
-    <table id="empleadoTable" class="table" width="100%">
+    <table id="empleadoTable" class="table table-striped" width="100%">
         <thead>
             <tr>
                 <th>Id</th>
@@ -24,6 +24,8 @@
                 <th>Estatus Laboral</th>
                 <th></th>
                 <th></th>
+                <th>Telefono</th>
+                <th>Edo Civil</th>
             </tr>
         </thead>
     </table>
@@ -57,21 +59,33 @@
                         <input type="text" class="form-control" id="email-name" maxlength="30">
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Fecha de nacimiento:</label>
-                         <input type="date" id="start" class="input-group date" name="fchnac-name" min="1970-01-01" max="2023-12-31">
+                        <label for="recipient-name" class="col-form-label">Genero:</label>
+                        <input type="text" class="form-control" id="gen-name" maxlength="30">
                     </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Estado Civil:</label>
+                            <input type="text" class="form-control" id="ecivil-name" maxlength="30">
+                        </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Edad</label>
-                        <input type="number" class="form-control" id="email-name" readonly>
+                        <label for="recipient-name" class="col-form-label">Fecha de nacimiento:</label>
+                         <input type="date"  class="input-group date" id="fchnac-name" min="1970-01-01" max="2023-12-31">
                     </div>
+                   @* <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Edad</label>
+                        <input type="number" class="form-control" id="edad-name" readonly>
+                    </div>*@
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">RFC:</label>
-                        <input type="text" class="form-control" id="email-name" maxlength="13">
+                        <input type="text" class="form-control" id="rfc-name" maxlength="13">
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Telefono:</label>
                         <input type="text" class="form-control" id="tel-name" maxlength="10">
                     </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Direccion:</label>
+                            <input type="text" class="form-control" id="dir-name" maxlength="30">
+                        </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Puesto:</label>
                         <input type="text" class="form-control" id="puesto-name" maxlength="30">
@@ -80,7 +94,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" onclick="btnCrear">Crear</button>
+                    <button type="button" class="btn btn-success" id="btnCrear">Crear</button>
                 </div>
             </div>
         </div>
@@ -99,10 +113,11 @@
                 </div>
                 <div class="modal-body">
                     <div id="anilloE"><div></div><div></div><div></div><div></div></div>
-                    <form id="frmE">
+                    <form id="frmE" name="frmE">
+                        <input type="hidden" id="IdE" />
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Email:</label>
-                            <input type="text" class="form-control" id="e-email" maxlength="50">
+                            <input type="email" class="form-control" id="e-email" maxlength="50">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Puesto</label>
@@ -110,11 +125,19 @@
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Telefono</label>
-                            <input type="text" class="form-control" id="e-tel" maxlength="30">
+                            <input type="number" class="form-control" id="e-tel" maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Estado Civil:</label>
+                            <input type="text" class="form-control" id="e-ec" maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Direccion:</label>
+                            <input type="text" class="form-control" id="e-dir" maxlength="30">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Fecha de Baja:</label>
-                            <input type="date" id="start" class="input-group date" name="fchnac-name" min="1970-01-01" max="2023-12-31">
+                            <input type="date" class="form-control" id="e-fchB"  min="1970-01-01" max="2023-12-31">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
@@ -150,7 +173,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Estatus</label>
-                            <select class="form-select" id="estatus" name="estatus">
+                            <select class="form-select" id="b-estatus" name="estatus">
+                                <option value=""> Seleccione una opcion </option>
                                 <option value="A">Labora </option>
                                 <option value="B">Ya no labora</option>
                             </select>

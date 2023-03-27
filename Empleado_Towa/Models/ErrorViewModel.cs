@@ -1,4 +1,4 @@
-namespace Empleado_Towa.Models
+namespace Empleado_Daltum.Models
 {
     public class ErrorViewModel
     {
