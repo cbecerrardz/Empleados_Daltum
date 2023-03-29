@@ -78,13 +78,12 @@ $(document).ready(function () {
         var data = $('#empleadoTable').DataTable().row(tr).data();
         console.log(data);
         var now = new Date();
-
         var day = ("0" + now.getDate()).slice(-2);
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
         var today = now.getFullYear() + "-" + (month) + "-" + (day);
-        console.log(today);
-        var result = moment(data.fecha_Baja).format('DD/MM/YYYY');
+
+        var result = moment(data.fecha_Baja).format('YYYY-MM-DD');
         console.log(result);
         $('#frmE')[0].reset();
         $('moE').removeClass('overlay');
@@ -102,7 +101,7 @@ $(document).ready(function () {
             $('#inputId').attr('readonly', true);
         } else {
             $('#inputId').prop('readonly', false);
-            $("#e-fchB").attr('value', today);
+            $("#e-fchB").attr('value', result);
         }
     });
 

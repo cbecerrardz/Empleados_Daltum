@@ -1,9 +1,7 @@
 ﻿using API_Empleado.DAL.Entidades;
-using API_Empleado.DAL.Modelos;
 using API_Empleado.DAL.Repositorio;
 using Empleado_Daltum.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace API_Empleado.Controllers
 {
@@ -140,10 +138,7 @@ namespace API_Empleado.Controllers
 
             if (!string.IsNullOrEmpty(emp.Estatus))
             {
-                if (emp.Estatus.Equals("A"))
-                    query = query.Where(item => item.Fecha_Baja == null);
-                else
-                    query = query.Where(item => item.Fecha_Baja != null);
+                query = emp.Estatus.Equals("A") ? query.Where(item => item.Fecha_Baja == null) : query.Where(item => item.Fecha_Baja != null);
             }
             if (!string.IsNullOrEmpty(emp.Nombre))
                 query = query.Where(item => item.Nombre.ToLower().Contains(emp.Nombre.ToLower()));
