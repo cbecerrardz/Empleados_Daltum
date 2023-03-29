@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Empleado_Towa\Empleado_Daltum.csproj" />
+    <ProjectReference Include="..\Empleado_Daltum\Empleado_Daltum.csproj" />
   </ItemGroup>
 
 </Project>
