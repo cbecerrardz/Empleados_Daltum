@@ -1,4 +1,5 @@
 ﻿using API_Empleado.DAL.Entidades;
+using API_Empleado.DAL.Modelos;
 using API_Empleado.DAL.Repositorio;
 using Empleado_Daltum.Models;
 using Microsoft.AspNetCore.Mvc;
